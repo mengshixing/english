@@ -1,6 +1,7 @@
 chrome.storage  中文文档
 
 chrome.storage  //谷歌浏览器存储
+
     描述: 使用chrome.storage API 来存储,检索,跟踪用户数据改变
     支持: chrome 20以上版本
     权限: "storage"   //ps:在manifest.json文件中声明 "permissions": [ "http://*/*", "https://*/*", "storage" ]
@@ -33,3 +34,5 @@ Manifest //配置清单
         ],
         ...
     }
+	 	
+git config --global core.autocrlf false
