@@ -24,12 +24,12 @@ chrome.storage综述
 
 Manifest //配置清单
 
-	你必须在扩展程序的配置(manifest.json)中声明"storage"权限,才能使用storage API.示例:
-	{
+    你必须在扩展程序的配置(manifest.json)中声明"storage"权限,才能使用storage API.示例:
+    {
         "name": "My extension",
         ...
         "permissions": [
           "storage"
         ],
         ...
-	}
+    }
