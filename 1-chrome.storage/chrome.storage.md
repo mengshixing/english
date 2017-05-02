@@ -47,6 +47,25 @@ Usage //用法
     ps://存储区域是不加密的,因此不要使用storage存储用户机密的信息
     
     storage.managed是只读的
+
+Examples //示例
+    
+    下面的代码用来检测用户在form中保存的值,如果存在就保存。
+    
+    function saveChanges() {
+        // Get a value saved in a form. 获取form中保存的值
+        var theValue = textarea.value;
+        // Check that there's some code there. 判断值是否存在
+        if (!theValue) {
+          message('Error: No value specified');
+          return;
+        }
+        // Save it using the Chrome extension storage API. 如果存在使用storage API存储
+        chrome.storage.sync.set({'value': theValue}, function() {
+          // Notify that we saved.
+          message('Settings saved');
+        });
+    }
     
     
     
