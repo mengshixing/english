@@ -36,6 +36,7 @@ Instance Methods //实例方法
     Parameters 参数：
         
         options :扩展的参数选项
+        
         all:布尔类型,用来注销SIP用户所有的绑定,默认值false
         
         var options = {
@@ -47,7 +48,7 @@ Instance Methods //实例方法
     
     有单独的页面介绍
 
-call(target, options=null) //发起请求
+    call(target, options=null) //发起请求
     
     发起一个多媒体呼叫
     
@@ -106,18 +107,24 @@ call(target, options=null) //发起请求
 
         ua.call('sip:bob@example.com', options);
 
-sendMessage(target, body, options=null) //发送消息
+    sendMessage(target, body, options=null) //发送消息
 
     发送即时信息通过SIP方式
+    
     Parameters 参数：
         
         target:呼叫地址,字符串类型,可以是目标用户名或者一个完整的SIP url或者是一个JsSIP.URI实例
+        
         body:字符串,消息主体,消息内容
+        
         options：扩展参数配置对象，列表如下
         
             contentType:字符串,消息主体的格式,默认 text/plain
-            eventHandlers:事件处理对象 JsSIP.Message过程各个事件定义响应操作及回调           
+            
+            eventHandlers:事件处理对象 JsSIP.Message过程各个事件定义响应操作及回调   
+            
             extraHeaders:字符串数组，扩展发送SIP消息请求的头
+            
         示例：
         
         var text = 'Hello Bob!';
@@ -133,9 +140,39 @@ sendMessage(target, body, options=null) //发送消息
 
         ua.sendMessage('sip:bob@example.com', text, options);
 
-terminateSessions(options=null) //终止回话
+    terminateSessions(options=null) //终止回话
 
     停止正在进行的会话
+    
+    Parameters 参数：
+    
+        options：扩展参数配置对象，详见JsSIP.RTCSession呼叫中止APL
+        
+    isRegistered() //是否注册
+
+    如果UA已经注册,返回true,否则返回false
+    
+    isConnected() //是否连接
+
+    如果传输已经见了连接返回true,否则返回false
+    
+    get(parameter) //获取参数值根据参数名
+    
+    获取运行时参数的值,一般可以获取到realm和ha1的值
+    
+    Parameters 参数：UA配置的参数名
+    
+    set(parameter, value) //设置参数值
+    
+    更新UA配置参数的值(运行时),一般来说只有display_name, password, realm 和 ha1 可以更新值
+    更新成功会返回true
+    
+    parameter 参数：UA配置的参数名
+    
+    value:新值
+    
+Events //事件
+    
     
 
     
