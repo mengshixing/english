@@ -172,6 +172,106 @@ Instance Methods //实例方法
     value:新值
     
 Events //事件
+   
+    JsSIP.UA类定义了一系列的事件,用户可以在事件中书写回调操作
+   
+    connecting //各种连接进行时,事件触发
+    
+    事件data的参数:
+    
+    socket:正在连接的JsSIP.Socket 实例
+    attempts: 数值,传输链接时长
+    
+    connected //配置完成后,发起连接时,事件触发
+    
+    事件data的参数:
+    
+    socket:正在连接的JsSIP.Socket 实例
+    
+    disconnect //连接传输请求或者自动重连请求失败时的事件
+    
+    事件data的参数:
+    
+    socket:正在连接的JsSIP.Socket 实例
+    error: 布尔类型，标志着socket连接失败是否是发生一个错误
+    code:连接状态码
+    reason:连接失败原因
+    
+    registered //注册成功时触发
+    
+    事件data的参数:
+    
+    response:   JsSIP.IncomingResponse(呼入回复)收到2.X响应码的实例
+    
+    unregistered //注销
+    
+    2种情况下会发生:1,发送注销请求(UA.unregister()),2,已注册的重复检测注册状态失败
+    
+    事件data的参数:
+    
+    response:   JsSIP.IncomingResponse(呼入回复),收到注册请求后SIP发出的回复的实例
+    cause:  SIP注销请求恢复可能为null,或者参照(Failure and End Causes) API
+    
+    registrationFailed //注册失败
+    
+    事件data的参数:
+    
+    response:   JsSIP.IncomingResponse(呼入回复),收到SIP发出的失败的实例,可能是SIP收到null等导致的
+    cause:  SIP注销请求恢复可能为null,或者参照(Failure and End Causes) API
+    
+    newRTCSession //新的会话 
+    
+    呼入/呼出 会话/呼叫时发生
+    
+    事件data的参数(呼入会话时):
+    
+    originator: 'remote'字符串,会话由远程端发起
+    session: JsSIP.RTCSession  会话实例
+    request: JsSIP.IncomingResponse(呼入回复) 收到会话邀请的实例
+    
+    事件data的参数(呼出会话时):
+    
+    originator: 'local'字符串,会话由本地用户发起
+    session: JsSIP.RTCSession  会话实例
+    request: JsSIP.OutgoingResponse(呼出回复) 收到呼出请求的实例
+    
+    newMessage //新消息
+    
+    发出/收到 消息时发生
+    
+    事件data的参数(收消息时):
+    
+    originator: 'remote'字符串,消息由远程端发出
+    session: JsSIP.Message  会话实例
+    request: JsSIP.IncomingResponse(呼入回复) 收到会话邀请的实例
+    
+    事件data的参数(发消息时):
+    
+    originator: 'local'字符串,消息由本地用户发出
+    session: JsSIP.Message  会话实例
+    request: JsSIP.OutgoingResponse(呼出回复) 收到呼出请求的实例
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 
