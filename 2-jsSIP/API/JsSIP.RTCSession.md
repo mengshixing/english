@@ -140,10 +140,37 @@ Instance Methods //实例方法
 		};
 		call.sendDTMF(tones, options);
 	
-	sendInfo
+	sendInfo(contentType, body=null, options=null)//发送信息
+	
+	发送一个SIP信息的消息
+	
+	contentType：SIP信息头的类型值
+	
+	body:SIP信息内容
+	
+	options  参数对象,详情如下
 		
+		extraHeaders：字符串数组,INFO请求的头参数
 		
+	hold(options=null, done=null)
+	
+	renegotiate(options=null, done=null)//重新协商
+	
+Events //事件
+
+	JsSIP.RTCSession类定义了一系列的事件,允许用户注册一系列回调操作在特定情况下执行。
+	
+	peerconnection //连接
+	
+	当内部的RTCPeerConnection连接
+	应用可以在此时改变peerconnection连接,例如通过在它上面添加一个RTCDataChannel
+	
 		
+	示例
+	var datachannel;
+	session.on('peerconnection', function(data) {
+	  datachannel = data.peerconnection.createDataChannel('chat');
+	});
 		
 		
 		
