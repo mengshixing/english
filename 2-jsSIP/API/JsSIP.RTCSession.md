@@ -232,6 +232,29 @@ Instance Methods //实例方法
           'video': false   // Local audio is not muted
         }
     
+    refer(target, options=null) //引用 访问
+    
+    通过将目标作为引用的源,发出一个引用方法.
+    
+    一个REFER方法会自动生成一个引用状态的订阅,
+    
+    通过 JsSIP.RTCSession.ReferSubscriber的一系列事件收到NOTIFY(通知)请求
+    
+    Parameters 参数：
+        
+        target：引用的源,字符串表示目标用户名或者一个完整的SIP地址,或者一个JsSIP.URI实例
+        
+        options  参数对象,详情如下
+        
+            extraHeaders:字符串数组,SIP引用请求时扩展的头参数
+             
+            eventHandlers：JsSIP.RTCSession.ReferSubscriber注册的事件操作
+            
+            replaces：可选的JsSIP.RTCSession实例,用户通话中替换引用目标,这是一个用户和引用源之间的即使通信
+    
+    resetLocalMedia() //重置本地媒体
+    
+    重置本地媒体流通过音视频的信道(除非远程用户正在保持通信)
     
 Events //事件
 
@@ -265,26 +288,137 @@ Events //事件
     
         request:JsSIP.OutgoingRequest实例,表示呼出的SIP请求消息
         
+    sending //发送事件
+    
+    在最初的邀请发送之前发生(对呼出情况来说),它能使用户在此时进行SIP请求或他的SDP的mangle(过滤机制)
         
+        事件data的参数(呼出会话时):
+    
+        request:JsSIP.OutgoingRequest实例,表示呼出的SIP请求消息
+    
+    progress //进展事件
+    
+    对会话邀请收到或者生成一个1XX的SIP回复时发生
+    
+    事件发生在SDP处理之前,如果需要的话可以对它进行微调,甚至可以通过移出Data对象中的回复参数(response)体来终止它
+    
+    事件data的参数(呼入会话时):
+    
+        originator:'local'
+    
+    事件data的参数(呼出会话时):
+    
+        originator:'remote'
         
+        response:接受1XX系列 SIP回复的JsSIP.IncomingResponse实例
+    
+    accepted //接收事件
+    
+    当呼叫被接受时发生((2XX received/sent(接受/发送))
         
+    事件data的参数(呼入会话时):
+    
+        originator:'local'
+    
+    事件data的参数(呼出会话时):
+    
+        originator:'remote'
         
+        response:接受2XX系列 SIP回复的JsSIP.IncomingResponse实例   
+    
+    confirmed //确认事件
         
+    当呼叫被确认时发生((ACK(即确认字符，在数据通信中，接收站发给发送站的一种传输类控制字符,
+    
+    表示发来的数据已确认接收无误。) received/sent(接受/发送))   
         
+    事件data的参数(呼入会话时):
+    
+        originator:'local'
+    
+    事件data的参数(呼出会话时):
+    
+        originator:'remote'
         
+        response:接受2XX系列 SIP回复的JsSIP.IncomingResponse实例   
+
+    ended //结束事件
+    
+    当已建立的连接结束时发生
+    
+    事件data的参数:
+    
+        originator:'local'/'remote'/'system' (本地/远程/系统字符串),终止会话的发起着
         
+        message:JsSIP.IncomingRequest或者JsSIP.IncomingResponse实例,originator为远程时,呼叫终止时
         
+        生成.其他情况下,为null
         
+        cause:Failure and End Causes(失败/结束原因)的值
+    
+    failed //失败事件
+    
+        当会话未能建立时发生
         
+        事件data的参数:
+    
+        originator:'local'/'remote'/'system' (本地/远程/系统字符串),会话失败的发起着
         
+        message:JsSIP.IncomingRequest或者JsSIP.IncomingResponse实例,originator为远程时,会话失败时
         
+        生成.其他情况下,为null
         
+        cause:Failure and End Causes(失败/结束原因)的值
         
+    newDTMF //新的多频信号事件
+    
+    当有呼入/呼出的信号时发生
+    
+    事件data的参数(呼入信号时):
+    
+    originator: 'remote'字符串,信号由远程端发起
+    dtmf: JsSIP.RTCSession.DTMF  信号实例
+    request: JsSIP.IncomingResponse(呼入回复) 收到请求信息的实例
+    
+    事件data的参数(呼出信号时):
+    
+    originator: 'local'字符串,信号由本地用户发起
+    dtmf: JsSIP.RTCSession.DTMF  信号实例
+    request: JsSIP.OutgoingResponse(呼出回复) 收到呼出请求的实例  
+    
+    newInfo //新信息的事件
+    
+    当有呼入/呼出的SIP INFO消息时发生
         
+    事件data的参数(呼入INFO信息时):
+    
+    originator: 'remote'字符串,INFO信息由远程端生成
+    info: JsSIP.RTCSession.Info   信息实例
+    request: JsSIP.IncomingResponse(呼入回复) 收到请求信息的实例
+    
+    事件data的参数(呼出INFO信息时):
+    
+    originator: 'local'字符串,INFO信息 由本地用户生成
+    info: JsSIP.RTCSession.Info   信息实例
+    request: JsSIP.OutgoingResponse(呼出回复) 收到呼出信息请求的实例    
         
+    hold //暂停事件
+
+    当本地或远程端暂停时发生
+    
+    事件data的参数(呼出INFO信息时):
+    
+        originator:'local'本地暂停远程的流,'remote'远程端暂停本地推的流
+        
+    unhold //继续/取消暂停
+    
+    当本地或远程端结束暂停时发生
+        
+    事件data的参数(呼出INFO信息时):
+    
+        originator:'local'本地继续远程的流,'remote'远程端继续本地推的流    
             
-            
-            
+    muted // 静音事件     
             
             
             
