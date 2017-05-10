@@ -419,12 +419,117 @@ Events //事件
         originator:'local'本地继续远程的流,'remote'远程端继续本地推的流    
             
     muted // 静音事件     
+    
+	当本地静音时发生
             
+    事件data的参数：
+	
+		audio:布尔类型,是否音频静音
+		
+		video:布尔类型,是否视频静音
+	
+	unmuted //取消静音事件
+	
+	当本地取消静音时发生
             
+    事件data的参数：
+	
+		audio:布尔类型,是否音频取消静音
+		
+		video:布尔类型,是否视频取消静音
+	
+	reinvite //再次邀请/重连事件
+	
+	当收到会话重连请求时发生
+	
+	事件data的参数：
+	
+		request:接受重连请求的JsSIP.IncomingRequest实例
+		
+		callback:初值是undefined,如果用户配置了一个函数的话,会在重连进行时执行
+		
+		reject():拒绝重连请求的方法。拒绝时执行,默认403回复码
+		
+		事件data.reject()的参数：
+		
+		options：扩展参数配置对象，列表如下
+		
+			extraHeaders: 字符串数组,扩展发送SIP MESSAGE请求的头
+			
+			status_code:300~699,SIP回复的状态码
             
+            reason_phrase:SIP回复的原因简介
             
+    update //更新事件
+
+	收到会话更新请求时发生
+     
+	事件data的参数：
+	
+		request:接受UPDATE 请求的JsSIP.IncomingRequest实例
+		
+		callback:初值是undefined,如果用户配置了一个函数的话,会在UPDATE 进行时执行
+		
+		reject():拒绝重连请求的方法。拒绝时执行,默认403回复码
+		
+		事件data.reject()的参数：
+		
+		options：扩展参数配置对象，列表如下
+		
+			extraHeaders: 字符串数组,扩展发送SIP MESSAGE请求的头
+			
+			status_code:300~699,SIP回复的状态码
             
-            
+            reason_phrase:SIP回复的原因简介
+			
+	refer  //引用 访问事件
+		
+	当收到会话的引用时发生
+	
+	如果引用被授权通过,一个新的呼出会话会立即产生,呼出的目标是引用头的值
+	
+	通知机制(NOTIFY)用于通知通信端发送引用的引用状态(RFC 3515定义)
+	
+	NOTE: 呼入请求指向的JsSIP.URI属性 是可以访问的引用源
+	
+	事件data的参数：
+	
+		request:接受REFER 请求的JsSIP.IncomingRequest实例
+		
+		accept(): 准许同意的方法,当引用被接收时发生,本方法生成一个指向引用源 URL的呼出请求
+	
+		事件data.reject()的参数：
+		
+			newRTCSession(session)：回调方法， JsSIP.UA针对新的呼出会话生成的newRTCSession事件
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
             
             
             
