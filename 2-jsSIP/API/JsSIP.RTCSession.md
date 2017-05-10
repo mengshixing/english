@@ -500,7 +500,12 @@ Events //事件
 	
 		事件data.reject()的参数：
 		
-			newRTCSession(session)：回调方法， JsSIP.UA针对新的呼出会话生成的newRTCSession事件
+			newRTCSession(session)：回调方法, JsSIP.UA针对新的呼出会话生成newRTCSession事件时执行,
+			
+			如果此方法未定义,之前的事件会被提交
+			
+			options:
+			
 	
 	
 	
