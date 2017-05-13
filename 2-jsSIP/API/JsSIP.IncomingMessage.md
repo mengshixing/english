@@ -1,39 +1,35 @@
-JsSIP.OutgoingRequest类 
+JsSIP.IncomingMessage 类
 
-    JsSIP.OutgoingRequest实例,保持发送SIP请求
-
-Instance Attributes //实例属性
+    JsSIP.IncomingMessage实例,接受的SIP请求/回复
     
+Instance Attributes //实例属性
+
     method //方法
     
-    SIP请求的方法名,字符串类型
-    
-    ruri // 地址
-    
-    JsSIP.URI实例,表示请求目标的url
-    
-    cseq //发送包的编号号码
-    
-    表示CSeq,数字类型(CSeq消息头用于标识事务先后顺序,一个响应消息有与其对应的请求消息相同的CSeq值)
-    
-    call_id //呼叫ID
-    
-    Call-ID头的值,字符串类型
+    SIP呼入消息的方法名,字符串类型
     
     from //发起
     
-    JsSIP.NameAddrHeader,指发起者头的值
+    JsSIP.NameAddrHeader,指SIP呼入消息发起者头的值
     
     to //目标
     
-    JsSIP.NameAddrHeader,指目标头的值
+    JsSIP.NameAddrHeader,指SIP呼入消息目标头的值
     
     body //主体
     
-    字符串类型,请求的主体部分
+    字符串类型,SIP消息的主体部分,没有的话返回null
     
 Instance Methods //实例方法
 
+    countHeader(name) //获取头的数目
+    
+    根据名字获取头的数量,数值型,返回指定头值的数量
+    
+    Parameters参数 
+    
+        name:头的名字
+    
     setHeader(name, value) //设置头
     
     给指定的头赋值
@@ -64,41 +60,21 @@ Instance Methods //实例方法
     
     验证头名字是否存在,存在返回true,否则返回false
     
-        Parameters参数 
+    Parameters参数 
     
         name:头的名字
+        
+    parseHeader(name, idx) //解析头
     
+    在指定的位置(索引点)解析特定的头,返回解析后的对象,头不存在或者解析失败返回undefined
+    
+    Parameters参数 
+    
+        name:头的名字
+        
+        idx:要解析的头的索引(数值型),默认0(第一个头)
+        
     toString() //转化为字符串
     
     SIP 请求生成字符串
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
