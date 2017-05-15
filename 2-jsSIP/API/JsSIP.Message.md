@@ -53,6 +53,8 @@ Instance Methods //实例方法
       'eventHandlers': eventHandlers
     };
 
+	coolPhone.sendMessage('sip:bob@example.com', text, options);
+	
     accept(options) //接受方法
     
     呼入消息的积极回应。表示发送着已经传送呼叫到终端,本方法只能用于呼入信息
