@@ -116,13 +116,33 @@ Optional parameters //可选参数
 	
 	SIP 认证HA1的哈希,字符串类型,用于认证摘要
 	
+	如果设置(SIP密码明文未提供),realm也需要配置,否则认证不可行
 	
+		ha1: "270fe19ce3890bd85e105998b0a75cf0"
+		
+	register //注册
 	
+	指JsSIP的UA是否在开始时自动注册,值为true/false,默认至true
 	
+		register: false
 	
+	register_expires //注册过期时间
 	
+	注册过期时间(s),默认值600
 	
+		register_expires: 300
+		
+	registrar_server //注册服务器
 	
+	设置SIP的注册资源标志(URI),值是SIP的URI去掉用户名,当值是从uri参数值取值时(去掉用户名)默认值null
+	
+		registrar_server: 'sip:registrar.mydomain.com'
+	
+	use_preloaded_route //使用预置路由
+	
+	可能的值是true/false,默认值false,如果设置为true,JsSIP每个SIP最初请求发送时会附加一个路由报头,
+	
+	报头的值是与Websocket服务器关联的SIP URI,一些输出的代理需要这个报头
 	
 	
 	
